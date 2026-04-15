@@ -1,49 +1,146 @@
-# ENPM611 Project Application Template
+# ENPM611 Project – GitHub Issue Analysis
 
-This is the template for the ENPM611 class project. Use this template in conjunction with the provided data to implement an application that analyzes GitHub issues for the [poetry](https://github.com/python-poetry/poetry/issues) Open Source project and generates interesting insights.
+## Overview
 
-This application template implements some of the basic functions:
+This project analyzes GitHub issues from an open-source repository dataset and generates insights into issue activity, contributor behavior, and trends over time.
 
-- `data_loader.py`: Utility to load the issues from the provided data file and returns the issues in a runtime data structure (e.g., objects)
-- `model.py`: Implements the data model into which the data file is loaded. The data can then be accessed by accessing the fields of objects.
-- `config.py`: Supports configuring the application via the `config.json` file. You can add other configuration paramters to the `config.json` file.
-- `run.py`: This is the module that will be invoked to run your application. Based on the `--feature` command line parameter, one of the three analyses you implemented will be run. You need to extend this module to call other analyses.
+The application processes issue data from a JSON file and provides multiple analysis features that can be run from the command line.
 
-With the utility functions provided, you should focus on implementing creative analyses that generate intersting and insightful insights.
+## Setup Instructions
 
-In addition to the utility functions, an example analysis has also been implemented in `example_analysis.py`. It illustrates how to use the provided utility functions and how to produce output.
+### Clone the Repository
 
-## Setup
+Run:
 
-To get started, your team should create a fork of this repository. Then, every team member should clone your repository to their local computer. 
+```
+git clone https://github.com/Adelco24/project-application-template.git
+cd project-application-template
+```
 
-
-### Install dependencies
-
-In the root directory of the application, create a virtual environment, activate that environment, and install the dependencies like so:
+### Install Dependencies
 
 ```
 pip install -r requirements.txt
 ```
 
-### Download and configure the data file
+### Configure Data Path
 
-Download the data file (in `json` format) from the project assignment in Canvas and update the `config.json` with the path to the file. Note, you can also specify an environment variable by the same name as the config setting (`ENPM611_PROJECT_DATA_PATH`) to avoid committing your personal path to the repository.
+Ensure config.json contains:
 
+```
+{
+"ENPM611_PROJECT_DATA_PATH": "poetry_issues.json"
+}
+```
 
-### Run an analysis
+## Running the Application
 
-With everything set up, you should be able to run the existing example analysis:
+All analyses are run using:
+
+```
+python run.py --feature <number>
+```
+
+### Optional arguments:
+
+Filter by contributor:
+```
+--user <username>
+```
+
+Filter by label:
+```
+--label <label>
+```
+
+## Features
+
+### Feature 0: Example Analysis
+
+Command:
 
 ```
 python run.py --feature 0
 ```
 
-That will output basic information about the issues to the command line.
+Description:
 
+- Displays total number of events across issues
+- Shows a bar chart of top issue creators
 
-## VSCode run configuration
+### Feature 1: Label Activity Analysis
 
-To make the application easier to debug, runtime configurations are provided to run each of the analyses you are implementing. When you click on the run button in the left-hand side toolbar, you can select to run one of the three analyses or run the file you are currently viewing. That makes debugging a little easier. This run configuration is specified in the `.vscode/launch.json` if you want to modify it.
+Commands:
 
-The `.vscode/settings.json` also customizes the VSCode user interface sligthly to make navigation and debugging easier. But that is a matter of preference and can be turned off by removing the appropriate settings.
+```
+python run.py --feature 1
+python run.py --feature 1 --label Bug
+```
+
+Description:
+
+- Analyzes issue activity based on labels
+- Can filter by a specific label
+- Outputs:
+  - number of matching issues
+  - most common labels
+  - most common event types
+- Displays:
+  - bar chart of event type distribution
+
+### Feature 2: Contributor Activity Analysis
+
+Commands:
+
+```
+python run.py --feature 2
+python run.py --feature 2 --user <username>
+```
+
+Description:
+
+- Analyzes contributor activity across issues and events
+- Can focus on a specific contributor
+- Outputs:
+  - number of issues created
+  - number of events authored
+  - event type breakdown
+- Displays:
+  - bar chart of event types for a contributor or top contributors overall
+
+### Feature 3: Issue Trend Analysis
+
+Command:
+
+```
+python run.py --feature 3
+```
+
+Description:
+
+- Provides overall insights into issue trends
+- Outputs:
+  - total number of issues
+  - open vs closed issue counts
+  - average events per issue
+  - top labels
+  - issue creation trends over time
+- Displays:
+  - bar chart of most common labels
+
+## Project Structure
+
+run.py
+config.py
+data_loader.py
+model.py
+example_analysis.py
+label_activity_analysis.py
+contributor_activity_analysis.py
+issue_trend_analysis.py
+
+## Notes
+
+- The dataset is loaded once and reused for performance
+- Charts are generated using matplotlib
+- Features support optional filtering using command-line arguments
