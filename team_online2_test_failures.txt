@@ -1,0 +1,7 @@
+...............................
+----------------------------------------------------------------------
+Ran 31 tests in 1.190s
+
+OK
+Loaded 1 issues from /tmp/tmpijl9duik.json.
+Loaded 1 issues from /tmp/tmp39jfqde7.json.

@@ -38,7 +38,7 @@ Ensure config.json contains:
 All analyses are run using:
 
 ```
-python run.py --feature <number>
+python3 run.py --feature <number>
 ```
 
 ### Optional arguments:
@@ -60,7 +60,7 @@ Filter by label:
 Command:
 
 ```
-python run.py --feature 0
+python3 run.py --feature 0
 ```
 
 Description:
@@ -73,8 +73,8 @@ Description:
 Commands:
 
 ```
-python run.py --feature 1
-python run.py --feature 1 --label Bug
+python3 run.py --feature 1
+python3 run.py --feature 1 --label Bug
 ```
 
 Description:
@@ -93,8 +93,8 @@ Description:
 Commands:
 
 ```
-python run.py --feature 2
-python run.py --feature 2 --user <username>
+python3 run.py --feature 2
+python3 run.py --feature 2 --user <username>
 ```
 
 Description:
@@ -113,7 +113,7 @@ Description:
 Command:
 
 ```
-python run.py --feature 3
+python3 run.py --feature 3
 ```
 
 Description:
@@ -128,7 +128,7 @@ Description:
 - Displays:
   - bar chart of most common labels
 
-## Project Structure
+## Main Project Structure
 
 run.py
 config.py
@@ -138,6 +138,15 @@ example_analysis.py
 label_activity_analysis.py
 contributor_activity_analysis.py
 issue_trend_analysis.py
+
+## Running the Unit Tests
+
+To run the coverage report, run the following commands:
+```
+python3 -m coverage run -m unittest discover
+python3 -m coverage report --include="./*.py" --omit="test_*.py"
+```
+These results are written to team_online2_test_failures.txt and team_online2_test_coverage.txt, respectively.
 
 ## Notes
 
