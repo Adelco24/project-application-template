@@ -141,11 +141,30 @@ issue_trend_analysis.py
 
 ## Running the Unit Tests
 
+Unit testing was performed for the main project modules using Python's built-in unittest framework. The tests were written on a separate testing branch and placed in files beginning with test_, as required by the assignment.
+
+The testing focused on the following areas:
+
+- model.py: verified that Issue and Event objects correctly load data from JSON, including valid fields, missing fields, invalid dates, and invalid issue numbers.
+- config.py: verified configuration parameter handling, environment variable overrides, typed value conversion, and command-line argument overwriting.
+- data_loader.py: verified that issue data can be loaded from a JSON file and converted into Issue objects.
+- label_activity_analysis.py: verified label filtering, no-match behavior, and chart-generation paths.
+- contributor_activity_analysis.py: verified contributor filtering, no-activity behavior, event counting, and chart-generation paths.
+- issue_trend_analysis.py: verified overall issue summaries, empty dataset behavior, state counts, label counts, and chart-generation paths.
+- example_analysis.py: verified that the example analysis runs and produces expected event-count output.
+
 To run the coverage report, run the following commands:
 ```
 python3 -m coverage run -m unittest discover
 python3 -m coverage report --include="./*.py" --omit="test_*.py"
 ```
+
+The final coverage result was:
+
+TOTAL 321 25 92%
+
+This satisfies the project requirement of at least 90% total statement coverage. All tests passed, and no test failures were found during the final test run.
+
 These results are written to team_online2_test_failures.txt and team_online2_test_coverage.txt, respectively.
 
 ## Notes
