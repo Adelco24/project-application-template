@@ -38,7 +38,7 @@ Ensure config.json contains:
 All analyses are run using:
 
 ```
-python run.py --feature <number>
+python3 run.py --feature <number>
 ```
 
 ### Optional arguments:
@@ -60,7 +60,7 @@ Filter by label:
 Command:
 
 ```
-python run.py --feature 0
+python3 run.py --feature 0
 ```
 
 Description:
@@ -73,8 +73,8 @@ Description:
 Commands:
 
 ```
-python run.py --feature 1
-python run.py --feature 1 --label Bug
+python3 run.py --feature 1
+python3 run.py --feature 1 --label Bug
 ```
 
 Description:
@@ -93,8 +93,8 @@ Description:
 Commands:
 
 ```
-python run.py --feature 2
-python run.py --feature 2 --user <username>
+python3 run.py --feature 2
+python3 run.py --feature 2 --user <username>
 ```
 
 Description:
@@ -113,7 +113,7 @@ Description:
 Command:
 
 ```
-python run.py --feature 3
+python3 run.py --feature 3
 ```
 
 Description:
@@ -128,7 +128,7 @@ Description:
 - Displays:
   - bar chart of most common labels
 
-## Project Structure
+## Main Project Structure
 
 run.py
 config.py
