@@ -18,8 +18,10 @@ class ContributorActivityAnalysis:
         self.USER = config.get_parameter('user')
 
     def run(self):
+        #load issue dataset from JSON source
         issues: List[Issue] = DataLoader().get_issues()
 
+        #restrict analysis to the requested contributor if specified
         if self.USER:
             created_issues = [issue for issue in issues if issue.creator == self.USER]
             matching_events = [
@@ -29,6 +31,7 @@ class ContributorActivityAnalysis:
                 if event.author == self.USER
             ]
 
+            #handle case where requested contributor does not exist
             if not created_issues and not matching_events:
                 print(f'No activity found for user: {self.USER}')
                 return
@@ -37,6 +40,7 @@ class ContributorActivityAnalysis:
             print(f'Issues created: {len(created_issues)}')
             print(f'Events authored: {len(matching_events)}\n')
 
+            #count how many events each contributor authored
             event_type_counter = Counter(event.event_type for event in matching_events)
 
             print('Event type breakdown:')
@@ -47,6 +51,7 @@ class ContributorActivityAnalysis:
                 names = [item[0] for item in event_type_counter.most_common(10)]
                 values = [item[1] for item in event_type_counter.most_common(10)]
 
+                #visualize contributor activity using a bar chart
                 plt.figure(figsize=(12, 6))
                 plt.bar(names, values)
                 plt.title(f'Event Types for Contributor: {self.USER}')
@@ -59,6 +64,7 @@ class ContributorActivityAnalysis:
                 print('\nThis user created issues but has no authored events in the dataset.')
 
         else:
+            #count how many issues each contributor created
             creator_counter = Counter(issue.creator for issue in issues if issue.creator)
             event_author_counter = Counter(
                 event.author
@@ -79,6 +85,7 @@ class ContributorActivityAnalysis:
             names = [item[0] for item in top_authors]
             values = [item[1] for item in top_authors]
 
+            #visualize contributor activity using a bar chart
             plt.figure(figsize=(12, 6))
             plt.bar(names, values)
             plt.title('Top Event Authors Across All Issues')

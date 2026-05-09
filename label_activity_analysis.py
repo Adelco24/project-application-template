@@ -18,19 +18,23 @@ class LabelActivityAnalysis:
         self.LABEL = config.get_parameter('label')
 
     def run(self):
+        #load all issues from the dataset
         issues: List[Issue] = DataLoader().get_issues()
 
+        #filter issues if a specific label was requested
         if self.LABEL:
             filtered_issues = [issue for issue in issues if self.LABEL in issue.labels]
         else:
             filtered_issues = issues
 
+        #handle case where no issues match the requested label
         if not filtered_issues:
             print(f'No issues found for label: {self.LABEL}')
             return
 
         print(f'\nFound {len(filtered_issues)} matching issues.\n')
 
+        #count occurrences of each event type across matching issues
         label_counter = Counter()
         event_counter = Counter()
 
@@ -52,6 +56,7 @@ class LabelActivityAnalysis:
         names = [item[0] for item in top_items]
         values = [item[1] for item in top_items]
 
+        #generate visualization of event type frequency
         plt.figure(figsize=(12, 6))
         plt.bar(names, values)
         plt.title(f'Event Types for Label: {self.LABEL}' if self.LABEL else 'Top Event Types Across All Issues')

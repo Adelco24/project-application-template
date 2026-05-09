@@ -13,27 +13,33 @@ class IssueTrendAnalysis:
     """
 
     def run(self):
+        #load issue dataset in
         issues: List[Issue] = DataLoader().get_issues()
 
+        #handle edge case where no issues exist in dataset
         if not issues:
             print('No issues found in dataset.')
             return
 
+        #count open and closed issues
         state_counter = Counter(issue.state.value for issue in issues if issue.state)
         label_counter = Counter()
         monthly_counter = Counter()
         event_count_per_issue = []
-
+        
+        #track frequency of labels across all issues
         for issue in issues:
             for label in issue.labels:
                 label_counter[label] += 1
 
+            #group issues by creation month to identify trends over time
             if issue.created_date is not None:
                 month_key = issue.created_date.strftime('%Y-%m')
                 monthly_counter[month_key] += 1
 
             event_count_per_issue.append(len(issue.events))
 
+        #compute average number of events associated with each issue
         avg_events = sum(event_count_per_issue) / len(event_count_per_issue)
 
         print('\nOverall Issue Trends')
@@ -56,6 +62,7 @@ class IssueTrendAnalysis:
             names = [item[0] for item in top_labels]
             values = [item[1] for item in top_labels]
 
+            #generate visualization of most common labels
             plt.figure(figsize=(12, 6))
             plt.bar(names, values)
             plt.title('Top 10 Labels Across All Issues')
